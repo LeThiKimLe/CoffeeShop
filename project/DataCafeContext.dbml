@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CafeManagement" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-SH243I1\LETHIKIMLE;Initial Catalog=CafeManagement;Integrated Security=True" SettingsObjectName="project.Properties.Settings" SettingsPropertyName="CafeManagementConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Ingredient" Member="Ingredients">
+    <Type Name="Ingredient">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unit" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Ingredient_Recipe" Member="Recipes" ThisKey="id" OtherKey="ingredient_id" Type="Recipe" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Menu" Member="Menus">
+    <Type Name="Menu">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="price" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Menu_Recipe" Member="Recipes" ThisKey="id" OtherKey="drink_id" Type="Recipe" />
+      <Association Name="Menu_OrderDetail" Member="OrderDetails" ThisKey="id" OtherKey="drink_id" Type="OrderDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="customer_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="barista_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="payment" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Order_OrderDetail" Member="OrderDetails" ThisKey="id" OtherKey="order_id" Type="OrderDetail" />
+      <Association Name="User_Order" Member="User" ThisKey="customer_id" OtherKey="id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recipe" Member="Recipes">
+    <Type Name="Recipe">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="drink_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ingredient_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Ingredient_Recipe" Member="Ingredient" ThisKey="ingredient_id" OtherKey="id" Type="Ingredient" IsForeignKey="true" />
+      <Association Name="Menu_Recipe" Member="Menu" ThisKey="drink_id" OtherKey="id" Type="Menu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Roles">
+    <Type Name="Role">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Association Name="Role_User" Member="Users" ThisKey="id" OtherKey="role_id" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="contact" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="role_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="User_Order" Member="Orders" ThisKey="id" OtherKey="customer_id" Type="Order" />
+      <Association Name="Role_User" Member="Role" ThisKey="role_id" OtherKey="id" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderDetail" Member="OrderDetails">
+    <Type Name="OrderDetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="order_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="drink_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="state" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Menu_OrderDetail" Member="Menu" ThisKey="drink_id" OtherKey="id" Type="Menu" IsForeignKey="true" />
+      <Association Name="Order_OrderDetail" Member="Order" ThisKey="order_id" OtherKey="id" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
