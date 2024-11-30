@@ -15,6 +15,8 @@ namespace project
         private Customer user;
 
         private List<CoffeeOrder> listOrder;
+
+        private CoffeeOrder currentOrder;
         public OrderForm(Customer requestUser)
         {
             InitializeComponent();
@@ -46,7 +48,29 @@ namespace project
             { 
                 DataGridViewRow row = orderView.Rows[e.RowIndex]; 
                 int id = Convert.ToInt32(row.Cells["id"].Value);
-                update_OrderItem(listOrder.Find(it => it.Id == id).ListItem);
+                currentOrder = listOrder.Find(it => it.Id == id);
+                update_OrderItem(currentOrder.ListItem);
+                string state = row.Cells["state"].Value.ToString();
+                if (state == "Đang nhận đơn")
+                {
+                    cancelBtn.Visible = true;
+                    cancelBtn.Enabled = true;
+                    paymentBtn.Visible = false;
+                } else
+                {
+                    cancelBtn.Visible = false;
+                    paymentBtn.Visible = true;
+                }
+                var payment = row.Cells["payment"].Value;
+                if (payment != null)
+                {
+                    paidLabel.Visible = true;
+                    paymentBtn.Visible = false;
+                }
+                else
+                {
+                    paidLabel.Visible = false;
+                } 
             }
         }
         private void update_OrderItem(List<OrderItem> listItem)
@@ -61,6 +85,35 @@ namespace project
             }
             itemDesc.Text = text;
             sumTxt.Text = total + " đ";
+        }
+
+        private void paymentBtn_Click(object sender, EventArgs e)
+        {
+            PaymentForm paymentForm = new PaymentForm(user, currentOrder, Double.Parse(sumTxt.Text.Replace("đ", "")));
+            paymentForm.ShowDialog();
+            if (paymentForm.paid == true)
+            {
+                paymentBtn.Visible = false;
+                paidLabel.Visible = true;
+                LoadOrderData();
+            }
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show("Xác nhận hủy đơn này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Check the result of the dialog
+            if (result == DialogResult.Yes)
+            {
+                // Perform delete action
+                if (user.CancelOrder(currentOrder.Id))
+                {
+                    MessageBox.Show("Hủy đơn thành công", "Success");
+                    LoadOrderData();
+                }
+            }
         }
     }
 }

@@ -8,14 +8,16 @@ namespace project
 {
     public class OrderItem
     {
+        private int orderId;
         private Coffee coffee;
         private int amount;
         private bool status;
-        public OrderItem(Coffee coffee, int amount, bool prepared = false) 
+        public OrderItem(int orderId, Coffee coffee, int amount, bool prepared = false) 
         { 
             this.coffee = coffee;
             this.amount = amount;
             status = prepared;
+            this.orderId = orderId;
         }
 
         public Coffee Coffee
@@ -35,6 +37,13 @@ namespace project
             get { return status; }
             set { status = value; }
         }
+
+        public int OrderId
+        {
+            get { return orderId; }
+            set { orderId = value; }
+        }
+
 
     }
 }

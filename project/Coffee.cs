@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using project.BSLayer;
 
 namespace project
 {
@@ -9,11 +10,17 @@ namespace project
     {
         private string name;
         private double price;
-
+        private int id;
         public string Name
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
         }
 
         public double Price
@@ -22,8 +29,9 @@ namespace project
             set { price = value; }
         }
 
-        public Coffee(string name, double price)
+        public Coffee(int id, string name, double price)
         {
+            this.id = id;
             this.name = name;
             this.price = price;
         }
@@ -31,6 +39,12 @@ namespace project
         {
             return $"{Name}";
             //return $"{Name} ({Size}): ${Price}\nDescription: {Description}";
+        }
+
+        public string Formular()
+        {
+            QueryCoffee query = new QueryCoffee();
+            return query.GetCoffeeFormula(Id);
         }
     }
 }

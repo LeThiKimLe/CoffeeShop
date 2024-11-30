@@ -10,14 +10,14 @@
   <Class Name="project.Barista">
     <Position X="3.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABBAAAAQIIAAAICAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAABBAAAAQIIAAAICAAAAACAIAgAAAAA=</HashCode>
       <FileName>Barista.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="project.Customer">
     <Position X="5.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAgAAAAgAQAgIAAAAIAAACAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAEAEAAAgAAAAiAQAgICAAAIAAACAAQAAAAAAA=</HashCode>
       <FileName>Customer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,15 +25,29 @@
   <Class Name="project.Person">
     <Position X="3.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAQAQAAAAEAAAgAAAAIAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAEAAAQBQAAAAEAAAgAAAAIAAAAgA=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="project.Coffee">
     <Position X="8.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAQAggAAEIIAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAADAAAAAQAAAAEEAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Coffee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="project.Material">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAJAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Material.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="project.Formula" Collapsed="true">
+    <Position X="6" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAACIAAAAiAAAAAAAAABAAAA=</HashCode>
+      <FileName>Formula.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="project.IOrderable">

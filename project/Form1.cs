@@ -26,18 +26,19 @@ namespace project
                 this.Hide();
                 if (user is Manager)
                 {
-                    ManagerForm managerForm = new ManagerForm();
+                    ManagerForm managerForm = new ManagerForm(user);
                     managerForm.ShowDialog();
                 }
                 else if (user is Barista)
                 {
-                    BaristaForm baristaForm = new BaristaForm();
+                    BaristaForm baristaForm = new BaristaForm(user);
                     baristaForm.ShowDialog();
                 }
                 else {
                     CustomerForm customerForm = new CustomerForm(user);
                     customerForm.ShowDialog();
                 }
+                this.Show();
             } else
             {
                 errorMsg.Visible = true;

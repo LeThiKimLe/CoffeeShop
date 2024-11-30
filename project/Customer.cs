@@ -99,5 +99,16 @@ namespace project
         {
             return cus.GetListOrder(ID);
         }
+
+        public bool CancelOrder(int orderID)
+        {
+            return cus.CancelOrder(ID, orderID);
+        }
+
+        public bool PayOrder(int orderID, string payment, double total)
+        {
+            return cus.ConfirmPayment(ID, orderID, payment, total);
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using project.BSLayer;
 
 namespace project
 {
@@ -9,6 +10,7 @@ namespace project
     {
         private string specialty;
         private int totalCoffeesPrepared;
+        private QueryBarista query = new QueryBarista();
 
         public Barista(string name, string phone, int id, int role = 2) : base(name, phone, id, role)
         {
@@ -25,10 +27,17 @@ namespace project
             get { return totalCoffeesPrepared; }
             set { totalCoffeesPrepared = value; }
         }
-        public void PrepareCoffee(Coffee coffee)
+        public string PrepareCoffee(OrderItem item)
         {
-            Console.WriteLine($"Barista {Name} is preparing {coffee.Name}...");
-            totalCoffeesPrepared++;
+            string checkStr = query.CheckAvailable(item.Coffee.Id, item.Amount);
+           if (checkStr == "Đủ nguyên liệu")
+           {
+                return query.PrepareCoffee(item.OrderId, item.Coffee.Id);
+           } else
+           {
+                return checkStr;
+           }
+
         }
 
         public void ServeCoffee(Coffee coffee, Customer customer)
@@ -41,6 +50,16 @@ namespace project
             Console.WriteLine($"Barista ID: {ID}, Name: {Name}, Phone: {Phone}");
             Console.WriteLine($"Specialty: {Specialty}");
             Console.WriteLine($"Total Coffees Prepared: {totalCoffeesPrepared}");
+        }
+
+        public List<CoffeeOrder> GetListOrder()
+        {
+            return query.GetListOrderedDrink();
+        }
+
+        public List<Material> GetListMaterial()
+        {
+            return query.GetListIngredient();
         }
     }
 }

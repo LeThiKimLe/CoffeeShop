@@ -32,15 +32,17 @@ namespace project
             this.orderView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.itemDesc = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.sumTxt = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.itemDesc = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.makePayment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cancelBtn = new System.Windows.Forms.Button();
+            this.paymentBtn = new System.Windows.Forms.Button();
+            this.paidLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.orderView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -53,8 +55,7 @@ namespace project
             this.date,
             this.total,
             this.state,
-            this.payment,
-            this.makePayment});
+            this.payment});
             this.orderView.Location = new System.Drawing.Point(41, 67);
             this.orderView.Name = "orderView";
             this.orderView.RowHeadersWidth = 51;
@@ -75,6 +76,9 @@ namespace project
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.paidLabel);
+            this.groupBox1.Controls.Add(this.paymentBtn);
+            this.groupBox1.Controls.Add(this.cancelBtn);
             this.groupBox1.Controls.Add(this.sumTxt);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.itemDesc);
@@ -86,6 +90,27 @@ namespace project
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chi tiết đơn";
             // 
+            // sumTxt
+            // 
+            this.sumTxt.AutoSize = true;
+            this.sumTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sumTxt.ForeColor = System.Drawing.Color.Red;
+            this.sumTxt.Location = new System.Drawing.Point(727, 34);
+            this.sumTxt.Name = "sumTxt";
+            this.sumTxt.Size = new System.Drawing.Size(96, 20);
+            this.sumTxt.TabIndex = 5;
+            this.sumTxt.Text = "Tổng cộng";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(545, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(79, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Tổng cộng";
+            // 
             // itemDesc
             // 
             this.itemDesc.AutoSize = true;
@@ -95,27 +120,6 @@ namespace project
             this.itemDesc.Size = new System.Drawing.Size(128, 18);
             this.itemDesc.TabIndex = 3;
             this.itemDesc.Text = "Đơn hàng của bạn";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(598, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 18);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Tổng cộng";
-            // 
-            // sumTxt
-            // 
-            this.sumTxt.AutoSize = true;
-            this.sumTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sumTxt.ForeColor = System.Drawing.Color.Red;
-            this.sumTxt.Location = new System.Drawing.Point(699, 93);
-            this.sumTxt.Name = "sumTxt";
-            this.sumTxt.Size = new System.Drawing.Size(96, 20);
-            this.sumTxt.TabIndex = 5;
-            this.sumTxt.Text = "Tổng cộng";
             // 
             // id
             // 
@@ -157,14 +161,43 @@ namespace project
             this.payment.Name = "payment";
             this.payment.Width = 125;
             // 
-            // makePayment
+            // cancelBtn
             // 
-            this.makePayment.HeaderText = "Tác vụ";
-            this.makePayment.MinimumWidth = 6;
-            this.makePayment.Name = "makePayment";
-            this.makePayment.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.makePayment.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.makePayment.Width = 125;
+            this.cancelBtn.BackColor = System.Drawing.Color.MistyRose;
+            this.cancelBtn.ForeColor = System.Drawing.Color.Black;
+            this.cancelBtn.Location = new System.Drawing.Point(724, 68);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(120, 53);
+            this.cancelBtn.TabIndex = 6;
+            this.cancelBtn.Text = "Hủy đơn";
+            this.cancelBtn.UseVisualStyleBackColor = false;
+            this.cancelBtn.Visible = false;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
+            // paymentBtn
+            // 
+            this.paymentBtn.BackColor = System.Drawing.Color.GreenYellow;
+            this.paymentBtn.ForeColor = System.Drawing.Color.Black;
+            this.paymentBtn.Location = new System.Drawing.Point(548, 68);
+            this.paymentBtn.Name = "paymentBtn";
+            this.paymentBtn.Size = new System.Drawing.Size(166, 53);
+            this.paymentBtn.TabIndex = 7;
+            this.paymentBtn.Text = "Thanh toán";
+            this.paymentBtn.UseVisualStyleBackColor = false;
+            this.paymentBtn.Visible = false;
+            this.paymentBtn.Click += new System.EventHandler(this.paymentBtn_Click);
+            // 
+            // paidLabel
+            // 
+            this.paidLabel.AutoSize = true;
+            this.paidLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paidLabel.ForeColor = System.Drawing.Color.MediumSeaGreen;
+            this.paidLabel.Location = new System.Drawing.Point(720, 68);
+            this.paidLabel.Name = "paidLabel";
+            this.paidLabel.Size = new System.Drawing.Size(126, 24);
+            this.paidLabel.TabIndex = 8;
+            this.paidLabel.Text = "Đã thanh toán";
+            this.paidLabel.Visible = false;
             // 
             // OrderForm
             // 
@@ -198,6 +231,8 @@ namespace project
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn state;
         private System.Windows.Forms.DataGridViewTextBoxColumn payment;
-        private System.Windows.Forms.DataGridViewButtonColumn makePayment;
+        private System.Windows.Forms.Button paymentBtn;
+        private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.Label paidLabel;
     }
 }

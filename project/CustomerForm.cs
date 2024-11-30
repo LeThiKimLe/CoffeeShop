@@ -13,7 +13,6 @@ namespace project
     public partial class CustomerForm : Form
     {
         private Customer user;
-        private int currentLabelYPosition = 20;
         List<OrderItem> listItem = new List<OrderItem>();
         public CustomerForm(Person loginUser)
         {
@@ -57,7 +56,7 @@ namespace project
                         } else
                         {
                             if (quantity != 0)
-                                listItem.Add(new OrderItem(new Coffee(itemName, unit), quantity));
+                                listItem.Add(new OrderItem(new Random().Next(), new Coffee(new Random().Next(),itemName, unit), quantity));
                         }
                         update_Order();
                     }
@@ -90,6 +89,8 @@ namespace project
             {
                 if (user.OrderCoffee(listItem)) {
                     MessageBox.Show("Đặt hàng thành công. Vui lòng click Xem đơn hàng để xem lại", "Thành công");
+                    listItem = new List<OrderItem>();
+                    update_Order();
                 }
             }
         }
